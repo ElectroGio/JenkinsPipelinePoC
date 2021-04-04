@@ -26,7 +26,7 @@ pipeline{
         stage("External Checkout"){
             steps{
                 echo "========Git Checkout to files======== ${params.gitFilesRepository}"
-                sh("git clone ${params.gitFilesRepository}")
+                bat("git clone ${params.gitFilesRepository}")
             }
         }
     }
