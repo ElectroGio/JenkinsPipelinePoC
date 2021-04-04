@@ -12,7 +12,7 @@ pipeline{
                                 trim: false
                             ),
                             string(
-                                defaultValue: 'E:\FilesTransfer', 
+                                defaultValue: 'E:/FilesTransfer', 
                                 name: 'destinationPath', 
                                 trim: false
                             )
