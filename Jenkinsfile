@@ -1,7 +1,9 @@
+def checkoutFolder = "${env.WORKSPACE}/FilesTransfer"
+def folderBackup = "${env.WORKSPACE}/Backup"
+
 pipeline{
     agent any
-    def checkoutFolder = "${env.WORKSPACE}/FilesTransfer"
-    def folderBackup = "${env.WORKSPACE}/Backup"
+    
     stages{
         stage("Setup parameters"){
             steps{
