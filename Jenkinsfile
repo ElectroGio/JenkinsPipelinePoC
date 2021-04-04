@@ -1,32 +1,33 @@
 pipeline{
     agent any
     stages{
-        stage("A"){
+        stage("Setup parameters"){
             steps{
-                echo "========executing A========"
+                script { 
+                    properties([
+                        parameters([
+                            string(
+                                defaultValue: 'https://github.com/ElectroGio/FilesTransfer.git', 
+                                name: 'gitFilesRepository', 
+                                trim: false
+                            ),
+                            string(
+                                defaultValue: 'E:\FilesTransfer', 
+                                name: 'destinationPath', 
+                                trim: false
+                            )
+                        ])
+                    ])
+                }
+
             }
-            post{
-                always{
-                    echo "========always========"
-                }
-                success{
-                    echo "========A executed successfully========"
-                }
-                failure{
-                    echo "========A execution failed========"
-                }
+        }
+
+        stage("External Checkout"){
+            steps{
+                echo "========Git Checkout to files======== ${params.gitFilesRepository}"
+                sh("git clone ${params.gitFilesRepository}")
             }
-        }
-    }
-    post{
-        always{
-            echo "========always========"
-        }
-        success{
-            echo "========pipeline executed successfully ========"
-        }
-        failure{
-            echo "========pipeline execution failed========"
         }
     }
 }
