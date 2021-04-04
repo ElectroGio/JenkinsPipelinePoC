@@ -36,7 +36,7 @@ pipeline{
                         if (fileExists("/"))
                         {
                             echo "========Folder exists, git pull========" 
-                            bat("git pull")
+                            bat("git pull origin master")
                         }
                         else
                         {
