@@ -46,19 +46,25 @@ pipeline{
         }
 
         stage("Backup files"){
-            echo("=======Backup files stage init =======")
-            script{
-                dir("${folderBackup}")
-                if(!fileExists("/"))
-                {
-                     bat("mkdir ${folderBackup}")
+            steps
+            {
+                script{
+                    echo("=======Backup files stage init =======")
+                    dir("${folderBackup}")
+                    if(!fileExists("/"))
+                    {
+                        bat("mkdir ${folderBackup}")
+                    }
                 }
             }
         }
 
         stage("Moving files"){
-            echo("=======Moving files to ${params.destinationPath} =======")
-            bat("move ${checkoutFolder} ${folderBackup}")
+            steps
+            {
+                echo("=======Moving files to ${params.destinationPath} =======")
+                bat("move ${checkoutFolder} ${folderBackup}")
+            }
         }
     }
 }
