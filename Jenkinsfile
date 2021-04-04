@@ -1,5 +1,5 @@
-def checkoutFolder = "${env.WORKSPACE}/FilesTransfer"
-def folderBackup = "${env.WORKSPACE}/Backup"
+def checkoutFolder = "${WORKSPACE}/FilesTransfer"
+def folderBackup = "${WORKSPACE}/Backup"
 
 pipeline{
     agent any
