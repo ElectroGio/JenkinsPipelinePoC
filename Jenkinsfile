@@ -31,16 +31,20 @@ pipeline{
             steps{
                 script{
                     echo "========Git Checkout to files======== ${params.gitFilesRepository}" 
-                    dir("${checkoutFolder}")  
-                    if (fileExists("/"))
-                    {
-                         bat("git pull")
+                    dir("${checkoutFolder}") 
+                    { 
+                        if (fileExists("/"))
+                        {
+                            echo "========Folder exists, git pull========" 
+                            bat("git pull")
+                        }
+                        else
+                        {
+                            echo "========Folder does not exist, git clone========"
+                            bat("git clone ${params.gitFilesRepository}")
+                        }
+                        echo "My cloned folder is ${checkoutFolder}"
                     }
-                    else
-                    {
-                         bat("git clone ${params.gitFilesRepository}")
-                    }
-                    echo "My cloned folder is ${checkoutFolder}"
                 }
             }
         }
@@ -51,9 +55,12 @@ pipeline{
                 script{
                     echo("=======Backup files stage init =======")
                     dir("${folderBackup}")
-                    if(!fileExists("/"))
                     {
-                        bat("mkdir ${folderBackup}")
+                        if(!fileExists("/"))
+                        {
+                            echo("=======Backup folder does not exist, action: create =======")
+                            bat("mkdir ${folderBackup}")
+                        }
                     }
                 }
             }
